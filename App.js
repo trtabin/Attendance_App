@@ -2,11 +2,14 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import {  Text, 
           View,
-          Image,
           TouchableOpacity,
-          ScrollView,
+          Alert,
+
 } from 'react-native';
 import { Dimensions } from 'react-native';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
+import * as Progress from 'react-native-progress';
+
 
 
 const windowWidth = Dimensions.get('window').width;
@@ -14,88 +17,75 @@ const windowHeight = Dimensions.get('window').height;
 
 
 export default class App extends React.Component{
+  constructor () {
+    super();
+    this.state = {
+      courseCode: null,
+      present: null,
+      absent: null,
+      attendance: null,
+    };
+    
+    this.checkInfo = async () => {
+        //console.log(this.state.email,this.state.password);
+        try {
+          let response = await fetch('https://96a911ba4fed.ngrok.io/api/mobileApp/attendancePerSubject', {
+              method: 'POST',
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                deptSession: "EEE2016-17",
+                student_id: "ASH1717010M",
+              }),
+            });
+          let responseJson = await response.json();
+          console.log( responseJson );
+          if(responseJson!= null){
+            this.setState({courseCode: responseJson.courseCode});
+            this.setState({present: responseJson.present});
+            this.setState({absent: responseJson.absent});
+            this.setState({attendance: (responseJson.present/(responseJson.present+responseJson.absent)).toFixed(2) });
+          }
+        } catch (error) {
+          console.error(error);
+          Alert.alert("Login Failed","Something went worng.",[
+              {text:"Try Again"}
+            ]);
+        }
+
+    }
+
+    this.checkInfo();
+  }
+
+
   render(){
       return (
-        <ScrollView showsVerticalScrollIndicator ={false} showsHorizontalScrollIndicator={false}>
-            <View style={{marginTop: 30, justifyContent:'center', alignItems:'center'}}>
-                      <Image
-                          style={{width:130, height:130, borderRadius:100}}
-                          source={{uri:'https://nstueee.000webhostapp.com/Portfolio/assets/tabin2.JPG'}}
-                      />
-                      <Text style={{fontSize:25}}>Tahmidur Rahman Tabin</Text>
+        <View>
+            <View style={{height:windowHeight*2/5,justifyContent:'center', alignItems:'center'}}>
+              <AnimatedCircularProgress
+                size={180}
+                width={20}
+                fill={60}
+                rotation={-180}
+                tintColor="#E86A6A"
+                backgroundColor="#FFF">
+                  {fill => <Text style={{fontSize:35, color:"#E86A6A"}}>60%</Text>}
+              </AnimatedCircularProgress>
+              <Text style={{fontSize:35}}>Total Attendance</Text>
+
             </View>
 
-            <View style={{padding:30 , borderTopEndRadius: 30, borderTopStartRadius: 30, }}>
-              
-                      <View style={{marginBottom:30, flexDirection:'row', justifyContent:'space-between'}}>  
-                        <TouchableOpacity onPress={()=> {alert('Y:1, S:1')}}>
-                            <View style={{justifyContent:'center', alignItems:'center',width:122, height:128, backgroundColor:"rgba(232, 106, 106, 0.2)", borderRadius:15}}>
-                                <Text style={{fontSize:25, fontWeight:'bold'}}>1st Year</Text>
-                                <Text style={{fontSize:15}}>Semester 1</Text>
-                            </View>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity onPress={()=> {alert('Y:1, S:2')}}>
-                            <View style={{justifyContent:'center', alignItems:'center',width:122, height:128, backgroundColor:"rgba(232, 106, 106, 0.2)", borderRadius:15}}>
-                                <Text style={{fontSize:25, fontWeight:'bold'}}>1st Year</Text>
-                                <Text style={{fontSize:15}}>Semester 2</Text>
-                            </View>
-                        </TouchableOpacity>
-                      </View>
-
-                      
-
-                      <View style={{marginBottom:30, flexDirection:'row', justifyContent:'space-between'}}>  
-                        <TouchableOpacity onPress={()=> {alert('Y:2, S:1')}}>
-                            <View style={{justifyContent:'center', alignItems:'center',width:122, height:128, backgroundColor:"rgba(232, 106, 106, 0.2)", borderRadius:15}}>
-                                <Text style={{fontSize:25, fontWeight:'bold'}}>2nd Year</Text>
-                                <Text style={{fontSize:15}}>Semester 1</Text>
-                            </View>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity onPress={()=> {alert('Y:2, S:2')}}>
-                            <View style={{justifyContent:'center', alignItems:'center',width:122, height:128, backgroundColor:"rgba(232, 106, 106, 0.2)", borderRadius:15}}>
-                                <Text style={{fontSize:25, fontWeight:'bold'}}>2nd Year</Text>
-                                <Text style={{fontSize:15}}>Semester 2</Text>
-                            </View>
-                        </TouchableOpacity>
-                      </View>
-
-                      
-
-                      <View style={{marginBottom:30, flexDirection:'row', justifyContent:'space-between'}}>  
-                        <TouchableOpacity onPress={()=> {alert('Y:3, S:1')}}>
-                            <View style={{justifyContent:'center', alignItems:'center',width:122, height:128, backgroundColor:"rgba(232, 106, 106, 0.2)", borderRadius:15}}>
-                                <Text style={{fontSize:25, fontWeight:'bold'}}>3rd Year</Text>
-                                <Text style={{fontSize:15}}>Semester 1</Text>
-                            </View>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity onPress={()=> {alert('Y:3, S:2')}}>
-                            <View style={{justifyContent:'center', alignItems:'center',width:122, height:128, backgroundColor:"rgba(232, 106, 106, 0.2)", borderRadius:15}}>
-                                <Text style={{fontSize:25, fontWeight:'bold'}}>3rd Year</Text>
-                                <Text style={{fontSize:15}}>Semester 2</Text>
-                            </View>
-                        </TouchableOpacity>
-                      </View>
-
-                       <View style={{marginBottom:30, flexDirection:'row', justifyContent:'space-between'}}>  
-                        <TouchableOpacity onPress={()=> {alert('Y:4, S:1')}}>
-                            <View style={{justifyContent:'center', alignItems:'center',width:122, height:128, backgroundColor:"rgba(232, 106, 106, 0.2)", borderRadius:15}}>
-                                <Text style={{fontSize:25, fontWeight:'bold'}}>4th Year</Text>
-                                <Text style={{fontSize:15}}>Semester 1</Text>
-                            </View>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity onPress={()=> {alert('Y:4, S:2')}}>
-                            <View style={{justifyContent:'center', alignItems:'center',width:122, height:128, backgroundColor:"rgba(232, 106, 106, 0.2)", borderRadius:15}}>
-                                <Text style={{fontSize:25, fontWeight:'bold'}}>4th Year</Text>
-                                <Text style={{fontSize:15}}>Semester 2</Text>
-                            </View>
-                        </TouchableOpacity>
-                      </View>
+            <View style={{padding:30 ,height:windowHeight*3/5, backgroundColor:"rgba(232, 106, 106, 0.2)", borderTopEndRadius: 30, borderTopStartRadius: 30, }}>
+                <View >
+                    <Text style={{fontSize:20, marginBottom:10}}>{this.state.courseCode} : {this.state.attendance*100}%</Text>
+                    <Progress.Bar style={{marginBottom:30}} height={10} color={"#E86A6A"} unfilledColor={"#C4C4C4"} borderWidth={0} progress={this.state.attendance} width={windowWidth-60} />
+                </View>
             </View>
-        </ScrollView>
+          <StatusBar hidden={true} />
+        </View>
       ); 
   }
 }
