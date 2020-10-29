@@ -17,7 +17,7 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 
-export default class App extends React.Component{
+export default class SignUp extends React.Component{
     constructor () {
     super();
     this.state = {
@@ -73,7 +73,7 @@ export default class App extends React.Component{
           <View style={{height:windowHeight*2/5, margin:20}}>
             <Image
               style={{height:windowHeight*2/5 - 40, width:windowWidth - 40 }}
-              source={require('./assets/image/chart.png')}
+              source={require('../image/chart.png')}
             />
           </View>
           <View style={{marginBottom: 40, }}>

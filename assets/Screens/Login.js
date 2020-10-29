@@ -6,7 +6,8 @@ import {  StyleSheet,
           TextInput,
           TouchableOpacity,
           Image,
-          Alert ,
+          Alert,
+          AsyncStorage,
 
 } from 'react-native';
 import { Dimensions } from 'react-native';
@@ -17,7 +18,7 @@ const windowHeight = Dimensions.get('window').height;
 
 
 
-export default class App extends React.Component{
+export default class Login extends React.Component{
   constructor () {
     super();
     this.state = {
@@ -42,6 +43,7 @@ export default class App extends React.Component{
           let responseJson = await response.json();
           console.log( responseJson.message);
           if(responseJson.message=="Login Successful"){
+            await AsyncStorage.setItem('isLoggedIn','1');
             Alert.alert("Login Successful","Congratulations");
           }else{
             Alert.alert("Login Failed","Invaild email or password",[
@@ -63,7 +65,7 @@ export default class App extends React.Component{
           <View style={{height:windowHeight*2/5, margin:20}}>
             <Image
               style={{height:windowHeight*2/5 - 40, width:windowWidth - 40 }}
-              source={require('./assets/image/chart.png')}
+              source={require('../image/chart.png')}
             />
           </View>
           <View>

@@ -13,7 +13,7 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 
-export default class App extends React.Component{
+export default class Home extends React.Component{
   render(){
       return (
         <ScrollView showsVerticalScrollIndicator ={false} showsHorizontalScrollIndicator={false}>

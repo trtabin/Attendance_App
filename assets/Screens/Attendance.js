@@ -16,7 +16,7 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 
-export default class App extends React.Component{
+export default class Attendance extends React.Component{
   constructor () {
     super();
     this.state = {
