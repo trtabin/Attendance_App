@@ -117,7 +117,7 @@ export default function Attendance({ route, navigation }){
       checkInfo = async () => {
       //console.log(this.state.email,this.state.password);
         try {
-          let response = await fetch('https://6a102f55c173.ngrok.io/api/mobileApp/attendancePerSubject', {
+          let response = await fetch('http://sayemulalam.xyz/laravel/public/api/mobileApp/attendancePerSubject', {
               method: 'POST',
               headers: {
                 Accept: 'application/json',

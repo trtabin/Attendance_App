@@ -66,7 +66,7 @@ export default function App() {
       //setIsLoading(false);
       loginState.isLoading = true;
       try {
-        let response = await fetch('https://006618c098f9.ngrok.io/api/mobileApp/login', {
+        let response = await fetch('http://sayemulalam.xyz/laravel/public/api/mobileApp/login', {
             method: 'POST',
             headers: {
               Accept: 'application/json',
