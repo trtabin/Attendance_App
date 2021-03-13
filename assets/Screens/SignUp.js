@@ -16,6 +16,7 @@ import { Dimensions } from 'react-native';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
+/*
 
 export default class SignUp extends React.Component{
     constructor () {
@@ -66,6 +67,12 @@ export default class SignUp extends React.Component{
 
     }
   }
+
+  _showLogin = () => {
+    this.props.navigation.navigate('Login');
+  };
+
+
   render(){
       return (
         <View>
@@ -79,7 +86,9 @@ export default class SignUp extends React.Component{
           <View style={{marginBottom: 40, }}>
               <View style={{alignItems:'center', flexDirection:'row'}}>
                 <Text style={{flex:1,  marginLeft:30, fontSize:35, fontWeight:'bold', color:'#E86A6A'}}>Sign Up</Text>  
-                <Text style={{flex:1, fontSize:20, fontWeight:'bold', color:'#BBBBBB'}}>Login</Text> 
+                <TouchableOpacity style={{flex:1, alignItems: 'center'}} onPress={this._showLogin}>
+                  <Text style={{ fontSize:20, fontWeight:'bold', color:'#BBBBBB'}}>Login</Text> 
+                </TouchableOpacity>             
               </View>
             <TextInput
                 style={{paddingLeft: 25 ,marginTop: 30,marginBottom:10, marginLeft: 20, marginRight: 20 ,backgroundColor:'rgba(232, 106, 106, 0.5)', borderRadius: 50, height: 50}}
@@ -132,4 +141,80 @@ export default class SignUp extends React.Component{
   }
 }
 
+*/
+export default function SignUp({ navigation }) { 
 
+    const [state, setState] = React.useState({
+      name: null,
+      email: null,
+      password: null,
+      dept: null,
+      session: null,
+      student_id: null,
+    });
+
+      return (
+        <View>
+        <ScrollView style={{ width: windowWidth, height: windowHeight}}>
+          <View style={{height:windowHeight*2/5, margin:20}}>
+            <Image
+              style={{height:windowHeight*2/5 - 40, width:windowWidth - 40 }}
+              source={require('../image/chart.png')}
+            />
+          </View>
+          <View style={{marginBottom: 40, }}>
+              <View style={{alignItems:'center', flexDirection:'row'}}>
+                <Text style={{flex:1,  marginLeft:30, fontSize:35, fontWeight:'bold', color:'#E86A6A'}}>Sign Up</Text>  
+                <TouchableOpacity style={{flex:1, alignItems: 'center'}}  onPress={() => navigation.navigate('Login')}>
+                  <Text style={{ fontSize:20, fontWeight:'bold', color:'#BBBBBB'}}>Login</Text> 
+                </TouchableOpacity>             
+              </View>
+            <TextInput
+                style={{paddingLeft: 25 ,marginTop: 30,marginBottom:10, marginLeft: 20, marginRight: 20 ,backgroundColor:'rgba(232, 106, 106, 0.5)', borderRadius: 50, height: 50}}
+                placeholder="Enter Name"
+                onChangeText={text => setState({name:text})}
+            />  
+
+            <TextInput
+                style={{paddingLeft: 25, marginBottom:10, marginLeft: 20, marginRight: 20 ,backgroundColor:'rgba(232, 106, 106, 0.5)', borderRadius: 50, height: 50}}
+                placeholder="Enter Email"
+                onChangeText={text => setState({email:text})}
+            />
+
+            <TextInput
+                style={{paddingLeft: 25, marginBottom:10, marginLeft: 20, marginRight: 20 ,backgroundColor:'rgba(232, 106, 106, 0.5)', borderRadius: 50, height: 50}}
+                placeholder="Enter Password"
+                onChangeText={text => setState({password:text})}
+            />
+
+            <TextInput
+                style={{paddingLeft: 25, marginBottom:10, marginLeft: 20, marginRight: 20 ,backgroundColor:'rgba(232, 106, 106, 0.5)', borderRadius: 50, height: 50}}
+                placeholder="Enter Department"
+                onChangeText={text => setState({dept:text})}
+            />
+
+            <TextInput
+                style={{paddingLeft: 25, marginBottom:10, marginLeft: 20, marginRight: 20 ,backgroundColor:'rgba(232, 106, 106, 0.5)', borderRadius: 50, height: 50}}
+                placeholder="Enter Session"
+                onChangeText={text => setState({session:text})}
+            />
+
+            <TextInput
+                style={{paddingLeft: 25, marginBottom:10, marginLeft: 20, marginRight: 20 ,backgroundColor:'rgba(232, 106, 106, 0.5)', borderRadius: 50, height: 50}}
+                placeholder="Enter Student ID"
+                onChangeText={text => setState({student_id:text})}
+            />
+     
+            <TouchableOpacity
+                onPress={()=>{signUp()}}
+                style={{padding:10, marginLeft:20,marginRight:20, borderRadius:50, height:50, backgroundColor:'rgba(232, 106, 106, 1)',}}
+            >
+              <Text style={{textAlign:'center',color:'white', fontSize:20, fontWeight:'bold' }}>Sign Up</Text>
+            </TouchableOpacity>
+
+          </View>
+          </ScrollView>
+          <StatusBar hidden={true} />
+        </View>
+      ); 
+    }
